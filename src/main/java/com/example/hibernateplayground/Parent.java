@@ -5,6 +5,7 @@ import java.time.Instant;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -22,7 +23,7 @@ public class Parent {
     @Column(name = "CREATED_ON")
     private final Instant createdOn = Instant.now();
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "parent")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "parent", fetch = FetchType.LAZY)
     private Child child;
 
     public void setChild(final Child child) {
