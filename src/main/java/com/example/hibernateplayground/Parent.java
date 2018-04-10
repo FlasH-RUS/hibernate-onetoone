@@ -5,6 +5,7 @@ import java.time.Instant;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -23,7 +24,7 @@ public class Parent {
     private final Instant createdOn = Instant.now();
 
     // optional = false results in NPE during save - should be enforced by DB itself if needed
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "parent")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "parent", fetch = FetchType.LAZY)
     private final Child child = new Child(this);
 
 }

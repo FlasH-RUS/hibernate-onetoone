@@ -2,10 +2,12 @@
 ## Overview
 - _Parent-Child_ relationship is required: _Parent_ should always have a _Child_.
 - _Parent_ and _Child_ share the same ID.
+- _Parent-Child_ relationship is LAZY.
 
 ## Implementation
  - _Child_ contains `@OneToOne` with `@Id` for the _parent_ field. No explicit ID therefore.
  - _Parent_ initializes its _child_ field explicitly upon creation.
+ - `fetch = FetchType.LAZY` is applied to the relationship
 
 ## Notes
 - _Child_ should implement Serializable.
