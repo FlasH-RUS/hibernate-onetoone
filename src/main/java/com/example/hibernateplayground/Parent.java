@@ -23,12 +23,8 @@ public class Parent {
     @Column(name = "CREATED_ON")
     private final Instant createdOn = Instant.now();
 
+    // optional = false results in null generated ID exceptions for Child - should be enforced by DB itself if needed
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "parent", fetch = FetchType.LAZY)
-    private Child child;
-
-    public void setChild(final Child child) {
-        child.setParent(this); // Bidirectional relationships are required to be updated explicitly
-        this.child = child;
-    }
+    private final Child child = new Child(this);
 
 }

@@ -13,7 +13,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -29,33 +28,9 @@ public class OneToOneIntegrationTest {
     private EntityManager entityManager;
 
     @Test
-    public void shouldSaveWithEmptyChild() {
-        // given
-        final Parent parent = new Parent();
-
-        // when
-        parentRepository.save(parent);
-    }
-
-    @Test
-    public void shouldLoadWithEmptyChild() {
-        // given
-        final Parent parent = new Parent();
-        parentRepository.saveAndFlush(parent);
-        entityManager.clear();
-
-        // when
-        final Parent loaded = parentRepository.findOne(parent.getId());
-
-        // then
-        assertThat(loaded.getChild(), is(nullValue()));
-    }
-
-    @Test
     public void shouldSaveWithChild() {
         // given
         final Parent parent = new Parent();
-        parent.setChild(new Child());
 
         // when
         parentRepository.save(parent);
@@ -65,7 +40,6 @@ public class OneToOneIntegrationTest {
     public void shouldLoadWithChild() {
         // given
         final Parent parent = new Parent();
-        parent.setChild(new Child());
         parentRepository.saveAndFlush(parent);
         entityManager.clear();
 
@@ -77,21 +51,9 @@ public class OneToOneIntegrationTest {
     }
 
     @Test
-    public void shouldDeleteWithEmptyChild() throws Exception {
-        // given
-        final Parent parent = new Parent();
-        parentRepository.saveAndFlush(parent);
-        entityManager.clear();
-
-        // when
-        parentRepository.delete(parent.getId());
-    }
-
-    @Test
     public void shouldDeleteWithChild() throws Exception {
         // given
         final Parent parent = new Parent();
-        parent.setChild(new Child());
         parentRepository.saveAndFlush(parent);
         entityManager.clear();
 
