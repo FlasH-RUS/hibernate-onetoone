@@ -1,6 +1,12 @@
 # Branch description
-This branch contains a minimal skeleton for further investigation:
-- 2 entities ([Parent](src/main/java/com/example/hibernateplayground/Parent.java) and [Child](src/main/java/com/example/hibernateplayground/Child.java)) without any JPA/Hibernate mappings (and even without ID fields).
-- A Data JPA test ([OneToOneIntegrationTest](src/test/java/com/example/hibernateplayground/OneToOneIntegrationTest.java)) with test methods set up, but checking nothing - to be implemented later.
+## Overview
+- _Parent-Child_ relationship is required: _Parent_ should always have a _Child_.
+- _Parent_ and _Child_ use different IDs.
+- _Parent-Child_ relationship is LAZY.
 
-For real configuration approaches see other branches.
+## Implementation
+ - Generic lazy bidirectional `@OneToOne` with `@JoinColumn`
+
+## Notes
+- It's a bidirectional relationship, so both sides should be updated explicitly: a custom `Child(Parent parent)` constructor is required.
+- "optional = false" results in a redundant update to Child when cascaded save
