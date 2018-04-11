@@ -33,7 +33,7 @@ public class OneToOneIntegrationTest {
         final Parent parent = new Parent();
 
         // when
-        parentRepository.save(parent);
+        parentRepository.saveAndFlush(parent);
     }
 
     @Test
@@ -48,6 +48,20 @@ public class OneToOneIntegrationTest {
 
         // then
         assertThat(loaded.getChild(), is(notNullValue()));
+    }
+
+    @Test
+    public void shouldLazyLoadChild() {
+        // given
+        final Parent parent = new Parent();
+        parentRepository.saveAndFlush(parent);
+        entityManager.clear();
+
+        // when
+        final Parent loaded = parentRepository.findOne(parent.getId());
+
+        // then
+        assertThat(entityManager.getEntityManagerFactory().getPersistenceUnitUtil().isLoaded(loaded.getChild()), is(false));
     }
 
     @Test
