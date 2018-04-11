@@ -10,6 +10,7 @@
  - `fetch = FetchType.LAZY` is applied to the relationship
 
 ## Notes
+- :exclamation: _Parent_ -> _Child_ is not LAZY. Moreover it issues a separate query for _Child_ when reading _Parent_.
 - _Child_ should implement Serializable.
 - Can't simply create a `ChildRepository` with _Child-Long_ or _Child-Parent_ generics: results in "This class [class com.example.hibernateplayground.Child] does not define an IdClass" exception
 - It's a bidirectional relationship, so both sides should be updated explicitly: a custom `Child(Parent parent)` constructor is required.
